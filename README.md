@@ -43,7 +43,7 @@ When installed with the **installation script**, the app will installed all the 
 
 To unistall, delete the `KDEiconExporter` folder by running this command from folder where you ran **install.sh**:
 ```bash
-rm -rf KDEiconExporter
+rm -rf KDEiconExporter start.sh install.log
 ```
 
 For the portable version, delete **main.py**.
