@@ -1,5 +1,5 @@
 # KDE Icon Exporter
-A simple program to extract system icons as **.svg** files.
+A simple program to extract system icons as **.svg** and **.png** files.
 
 ## Installation
 
