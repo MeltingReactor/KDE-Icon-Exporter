@@ -33,3 +33,17 @@ bash start.sh
   ```
 
 </details>
+
+## Uninstallation
+When installed with the **installation script**, the app will installed all the required dependencies:
+- Python3
+- Qt6
+- kdialog
+- git
+
+To unistall, delete the `KDEiconExporter` folder by running this command from folder where you ran **install.sh**:
+```bash
+rm -rf KDEiconExporter
+```
+
+For the portable version, delete **main.py**.
