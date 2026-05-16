@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 declare -A packages=(
     ["python3([0-9]{0,2})?"]="python3"
@@ -14,7 +15,7 @@ check_and_install() {
     local pkg="$2"
 
     if ! dnf list installed 2>/dev/null | grep -E "^$pattern" &>/dev/null; then
-        if ! sudo dnf install -y "$pkg" &>/dev/null; then
+        if ! sudo dnf install -y "$pkg"; then
             failures+=("$pkg")
         fi
     fi
@@ -33,8 +34,8 @@ fi
 REPO_URL="https://github.com/user/test.git"  # Replace with actual repo URL
 CLONE_DIR="KDEiconExporter"
 
-if git clone "$REPO_URL" "$CLONE_DIR" &>/dev/null; then
-    cd "$CLONE_DIR" || { echo "Git error.; exit 1; }
+if git clone "$REPO_URL" "$CLONE_DIR"; then
+    cd "$CLONE_DIR" || { echo "Git error."; exit 1; }
 
     # Create start.sh with content
     echo "python3 main.py" > start.sh
