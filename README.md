@@ -41,7 +41,7 @@ When installed with the **installation script**, the app will installed all the 
 - kdialog
 - git
 
-To unistall, delete the `KDEiconExporter` folder by running this command from folder where you ran **install.sh**:
+To unistall, run this command from folder where you ran **install.sh**:
 ```bash
 rm -rf KDEiconExporter start.sh install.log
 ```
