@@ -9,3 +9,5 @@ This command will download **install.sh** and run the **start.sh** script:
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/install.sh) && bash start.sh
 ```
+## Usage
+Once installation has finished, the app will open. If you wish to reopen the app, navigate to the folder called `KDEiconExporter` which will be in the folder where you ran `install.sh`.
