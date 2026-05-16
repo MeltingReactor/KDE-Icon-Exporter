@@ -29,9 +29,9 @@ done
 
 # Report dependency status
 if [ ${#failures[@]} -eq 0 ]; then
-    echo "Dependencies are installed successfully."
+    echo "✅ Dependencies are installed successfully."
 else
-    echo "The following dependencies failed to install: ${failures[*]} ❌"
+    echo "❌ The following dependencies failed to install: ${failures[*]}"
 fi
 
 REPO_URL="https://github.com/MeltingReactor/KDE-Icon-Exporter.git"
@@ -39,10 +39,8 @@ CLONE_DIR="KDEiconExporter"
 
 if git clone "$REPO_URL" "$CLONE_DIR" &>/dev/null; then
     cd "$CLONE_DIR" || { echo "Git error."; exit 1; }
-
     echo "python3 main.py" > start.sh
     chmod +x start.sh
-
     echo "Installation finished."
 else
     echo "Git error."
