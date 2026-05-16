@@ -5,7 +5,7 @@ A simple program to extract system icons as **.svg** files.
 <details>
   <summary><strong>Installation</strong></summary>
 
-  1. Download **install.sh**.
+  1. Download [**install.sh**](https://raw.githubusercontent.com/exampleuser/myrepo/main/config.txt)
   2. Run `bash sudo ./install.sh` in the folder containing the script.
   3. Run `run.sh`.
 </details>
