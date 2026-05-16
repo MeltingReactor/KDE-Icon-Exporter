@@ -1,11 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
+LOG_FILE="install.log"
+echo "Installation started at $(date)" > "$LOG_FILE"
+
 declare -A packages=(
-    ["^python3([0-9]{0,2})?$"]="python3"
-    ["^qt6$"]="qt6-qtbase-devel"
-    ["^kdialog$"]="kdialog"
-    ["^git$"]="git"
+    ["python3([0-9]{0,2})?"]="python3"
+    ["qt6"]="qt6-qtbase-devel"
+    ["kdialog"]="kdialog"
+    ["git"]="git"
 )
 
 failures=()
@@ -14,15 +17,15 @@ check_and_install() {
     local pattern="$1"
     local pkg="$2"
 
-    # Only install if not present
-    if ! dnf list installed 2>/dev/null | grep -E "$pattern" &>/dev/null; then
-        echo "Installing $pkg..."
-        if ! sudo dnf install -y "$pkg"; then
+    if ! dnf list installed 2>/dev/null | grep -E "^$pattern" &>/dev/null; then
+        if ! sudo dnf install -y "$pkg" >> "$LOG_FILE" 2>&1; then
             failures+=("$pkg")
+            echo "❌ Failed to install $pkg."
         fi
     fi
 }
 
+# Install dependencies
 for pattern in "${!packages[@]}"; do
     check_and_install "$pattern" "${packages[$pattern]}"
 done
@@ -30,28 +33,50 @@ done
 if [ ${#failures[@]} -eq 0 ]; then
     echo "✅ Dependencies are installed successfully."
 else
-    echo "❌ Failed to install: ${failures[*]}"
+    echo "❌ The following dependencies failed to install: ${failures[*]}"
     exit 1
 fi
 
+CLONE_DIR="${CLONE_DIR:-KDEiconExporter}"
 REPO_URL="https://github.com/MeltingReactor/KDE-Icon-Exporter.git"
-CLONE_DIR="KDEiconExporter"
 
-if [ -d "$CLONE_DIR" ]; then
-    echo "Directory $CLONE_DIR already exists. Skipping clone."
-else
-    echo "Cloning repository..."
-    if ! git clone "$REPO_URL" "$CLONE_DIR"; then
-        echo "❌ Git error."
-        exit 1
-    fi
+# Safety checks
+if [[ -z "$CLONE_DIR" ]]; then
+    echo "❌ CLONE_DIR is empty. Aborting to prevent serious damage to system."
+    exit 1
 fi
 
-# -------------------------------
-# Create start.sh
-# -------------------------------
-cd "$CLONE_DIR" || { echo "❌ Bash error"; exit 1; }
+if [[ "$CLONE_DIR" = /* ]]; then
+    echo "❌ Absolute paths are not allowed for CLONE_DIR. Aborting to prevent serious damage to system."
+    exit 1
+fi
+
+# Remove existing folder if existing.
+if [[ -d "$CLONE_DIR" ]]; then
+    echo "Removing existing folder '$CLONE_DIR'..."
+    rm -rf "$CLONE_DIR"
+fi
+
+# Clone repository
+echo "Cloning repository..."
+if ! git clone "$REPO_URL" "$CLONE_DIR" >> "$LOG_FILE" 2>&1; then
+    echo "❌ Git clone failed.."
+    exit 1
+fi
+
+cd "$CLONE_DIR" || { echo "❌ Cannot enter directory '$CLONE_DIR'"; exit 1; }
+
 echo "python3 main.py" > start.sh
 chmod +x start.sh
 
+echo "cd \"$CLONE_DIR\" && ./start.sh" > ../start.sh
+chmod +x ../start.sh
+
 echo "✅ Installation finished."
+
+# Open folder in system file manager
+if command -v xdg-open &>/dev/null; then
+    xdg-open "$(pwd)" &>/dev/null || echo "⚠️ WARN: Cannot open file manager. "
+else
+    echo "⚠️ WARN: xdg-open not found."
+fi
