@@ -14,3 +14,6 @@ Once installation has finished, the app will open. If you wish to reopen the app
 ```bash
 bash start.sh
 ```
+> [!IMPORTANT]
+> Currently, the .svg file conversion has some issues.
+> I reccomend just using the raster image.
