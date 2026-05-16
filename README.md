@@ -12,5 +12,5 @@ bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporte
 ## Usage
 Once installation has finished, the app will open. If you wish to reopen the app, navigate to the folder where you ran `install.sh` and from that folder run this command:
 ```bash
-bash /KDEiconExporter/start.sh
+bash start.sh
 ```
