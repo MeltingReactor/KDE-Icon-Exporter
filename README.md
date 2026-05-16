@@ -26,8 +26,7 @@ bash start.sh
 
 <details>
   <summary><strong>Portable versions</strong></summary>
-  
-  Portable versions
+
   If you wish to run the app standalone with python, download the [main.py](https://github.com/MeltingReactor/KDE-Icon-Exporter/blob/main/main.py) file and run it with
   ```bash
   python3 main.py
