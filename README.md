@@ -47,3 +47,6 @@ rm -rf KDEiconExporter start.sh install.log
 ```
 
 For the portable version, delete **main.py**.
+
+## License
+This project is licenced under the [CC0 license](LICENSE).
