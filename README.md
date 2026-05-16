@@ -5,7 +5,7 @@ A simple program to extract system icons as **.svg** files.
 <details>
   <summary><strong>Installation</strong></summary>
 
-  1. Download [**install.sh**](https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/refs/heads/main/install.sh?token=GHSAT0AAAAAAD4VCXJYAWQH3QRRT4HRSJ322QINF2A)
+  1. Download <a href="https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/refs/heads/main/install.sh" download>install.sh</a>
   2. Run `bash sudo ./install.sh` in the folder containing the script.
   3. Run `run.sh`.
 </details>
