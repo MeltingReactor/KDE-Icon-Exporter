@@ -3,18 +3,9 @@ A simple program to extract system icons as **.svg** files.
 
 ***This script is intended for use on **Fedora 44 & KDE v6.6.4**.***
 
-<details>
-  <summary><strong>Installation</strong></summary>
+## Installation
 
-1. Download **install.sh** by running this command:
+This command will download **install.sh** and run the **start.sh** script:
 ```bash
-curl -s https://api.github.com/repos/MeltingReactor/KDE-Icon-Exporter/releases/latest \
-| grep '"browser_download_url":' \
-| grep 'install.sh' \
-| head -n1 \
-| sed -E 's/.*"([^"]+)".*/\1/' \
-| xargs curl -L -o install.sh
+bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/install.sh) && bash start.sh
 ```
-3. Run `bash ./install.sh` in the folder containing the script.
-4. Run `./start.sh`.
-</details>
