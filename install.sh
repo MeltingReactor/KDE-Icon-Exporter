@@ -34,14 +34,12 @@ else
     echo "The following dependencies failed to install: ${failures[*]} ❌"
 fi
 
-# Clone repo silently
-REPO_URL="https://github.com/user/test.git"  # Replace with actual repo URL
+REPO_URL="https://github.com/MeltingReactor/KDE-Icon-Exporter.git"
 CLONE_DIR="KDEiconExporter"
 
 if git clone "$REPO_URL" "$CLONE_DIR" &>/dev/null; then
     cd "$CLONE_DIR" || { echo "Git error."; exit 1; }
 
-    # Create start.sh silently
     echo "python3 main.py" > start.sh
     chmod +x start.sh
 
