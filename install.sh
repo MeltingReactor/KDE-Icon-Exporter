@@ -1,11 +1,11 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 declare -A packages=(
-    ["python3([0-9]{0,2})?"]="python3"
-    ["qt6"]="qt6-qtbase-devel"
-    ["kdialog"]="kdialog"
-    ["git"]="git"
+    ["^python3([0-9]{0,2})?$"]="python3"
+    ["^qt6$"]="qt6-qtbase-devel"
+    ["^kdialog$"]="kdialog"
+    ["^git$"]="git"
 )
 
 failures=()
@@ -14,35 +14,44 @@ check_and_install() {
     local pattern="$1"
     local pkg="$2"
 
-    # Only install if not present; suppress command output
-    if ! dnf list installed 2>/dev/null | grep -E "^$pattern" &>/dev/null; then
-        if ! sudo dnf install -y "$pkg" &>/dev/null; then
+    # Only install if not present
+    if ! dnf list installed 2>/dev/null | grep -E "$pattern" &>/dev/null; then
+        echo "Installing $pkg..."
+        if ! sudo dnf install -y "$pkg"; then
             failures+=("$pkg")
         fi
     fi
 }
 
-# Install dependencies silently
 for pattern in "${!packages[@]}"; do
     check_and_install "$pattern" "${packages[$pattern]}"
 done
 
-# Report dependency status
 if [ ${#failures[@]} -eq 0 ]; then
     echo "✅ Dependencies are installed successfully."
 else
-    echo "❌ The following dependencies failed to install: ${failures[*]}"
+    echo "❌ Failed to install: ${failures[*]}"
+    exit 1
 fi
 
 REPO_URL="https://github.com/MeltingReactor/KDE-Icon-Exporter.git"
 CLONE_DIR="KDEiconExporter"
 
-if git clone "$REPO_URL" "$CLONE_DIR" &>/dev/null; then
-    cd "$CLONE_DIR" || { echo "Git error."; exit 1; }
-    echo "python3 main.py" > start.sh
-    chmod +x start.sh
-    echo "Installation finished."
+if [ -d "$CLONE_DIR" ]; then
+    echo "Directory $CLONE_DIR already exists. Skipping clone."
 else
-    echo "Git error."
-    exit 1
+    echo "Cloning repository..."
+    if ! git clone "$REPO_URL" "$CLONE_DIR"; then
+        echo "❌ Git error."
+        exit 1
+    fi
 fi
+
+# -------------------------------
+# Create start.sh
+# -------------------------------
+cd "$CLONE_DIR" || { echo "❌ Bash error"; exit 1; }
+echo "python3 main.py" > start.sh
+chmod +x start.sh
+
+echo "✅ Installation finished."
