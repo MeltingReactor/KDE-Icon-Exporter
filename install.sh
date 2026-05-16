@@ -72,11 +72,4 @@ chmod +x ../start.sh
 
 echo "✅ Installation finished."
 
-# Open folder in system file manager
-if command -v xdg-open &>/dev/null; then
-    xdg-open "$(pwd)" &>/dev/null || echo "⚠️ WARN: Cannot open file manager. "
-else
-    echo "⚠️ WARN: xdg-open not found."
-fi
-
 #EOF
