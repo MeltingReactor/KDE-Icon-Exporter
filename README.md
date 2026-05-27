@@ -16,7 +16,7 @@ bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporte
 > [!TIP]
 > **Arch Users**: Run this command to install:
 > ```bash
-> bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/installarch.sh) && bash start.sh
+> yes | sudo pacman -S python-pip && sudo pacman -S python-pyqt6 && bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/installarch.sh) && bash start.sh
 > ```
 
 
