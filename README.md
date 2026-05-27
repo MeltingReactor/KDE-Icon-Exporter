@@ -22,6 +22,10 @@ bash start.sh
 > Currently, the .svg file conversion has some issues.
 > I recommend just using the raster image.
 
+> [!TIP]
+> **Arch Users**: Run this command to install:
+> bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/installarch.sh) && bash start.sh
+
 ---
 
 <details>
