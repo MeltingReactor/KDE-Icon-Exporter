@@ -13,6 +13,11 @@ bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporte
 **With KDE versions:**
 - 6.6.4
 
+> [!TIP]
+> **Arch Users**: Run this command to install:
+> bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/installarch.sh) && bash start.sh
+
+
 ## Usage
 Once installation has finished, the app will open. If you wish to reopen the app, navigate to the folder where you ran `install.sh` and from that folder run this command:
 ```bash
@@ -22,9 +27,6 @@ bash start.sh
 > Currently, the .svg file conversion has some issues.
 > I recommend just using the raster image.
 
-> [!TIP]
-> **Arch Users**: Run this command to install:
-> bash <(curl -s https://raw.githubusercontent.com/MeltingReactor/KDE-Icon-Exporter/main/installarch.sh) && bash start.sh
 
 ---
 
